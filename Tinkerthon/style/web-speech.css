@@ -1,0 +1,138 @@
+#info a,
+#translate-info {
+  color: darkred;
+  text-decoration: underline;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main_body {
+  background-color: rgb(231, 229, 229);
+}
+
+.final {
+  color: black;
+  padding-right: 3px;
+}
+.interim {
+  color: gray;
+}
+#results {
+  font-size: 14px;
+  font-weight: bold;
+  border: 3px solid #ddd;
+  padding: 15px;
+  text-align: left;
+  min-height: 150px;
+  margin: 0 0 20px 0;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+#start_button {
+  border: 0;
+  background-color: transparent;
+  padding: 0;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+#start_img {
+  width: 50px;
+  height: 50px;
+}
+
+#translate-results {
+  font-size: 14px;
+  font-weight: bold;
+  border: 3px solid #ddd;
+  padding: 15px;
+  text-align: left;
+  min-height: 150px;
+  margin: 0 0 20px 0;
+  border-radius: 10px;
+  background-color: #9cc3d5ff;
+}
+
+.btn-primary {
+  width: 100px;
+  margin: auto;
+}
+
+.main_Container {
+  display: flex;
+  flex-direction: column;
+  column-gap: 20px;
+  background-color: #9cc3d5ff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.main_translator_Container {
+  background-color: #9cc3d5ff;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  column-gap: 20px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+select {
+  padding: 5px 5px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  padding: 3px;
+}
+
+.row_two {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.speakBtn{
+  border: none;
+  font-size: 45px;
+  background: transparent;
+}
+
+.row_3{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 50px;
+}
+
+.alert-success{
+  background-color: #9cc3d5ff ;
+  color: black;
+}
+
+
+
+@media screen and (max-width: 767px) {
+  #select_dialect {
+    position: absolute;
+    right: 0;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  select {
+    margin-right: 10px;
+  }
+}

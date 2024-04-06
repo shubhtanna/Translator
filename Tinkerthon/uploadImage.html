@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style/uploadimg.css" />
+    <script src="https://cdn.jsdelivr.net/gh/naptha/tesseract.js@1.0.10/dist/tesseract.min.js"></script>
+    <script src="https://kit.fontawesome.com/0dbb936917.js" crossorigin="anonymous"></script>
+
+    <title>Convert image to editable text</title>
+  </head>
+  <body>
+    <div class="app">
+      <header>
+        <h1>Convert image to editable text</h1>
+      </header>
+      <main>
+        <section class="upload-file flex-between">
+          <p class="tooltip" title="Enter URL of image.">
+            <img src="images/search.png" alt="upload" />
+          </p>
+          <input type="text" placeholder="Enter URL of image" id="img-url" />
+          <label>
+            <p class="tooltip" title="Select any file.">
+              <img src="images/upload.png" alt="select" />
+            </p>
+            <input type="file" hidden id="upload-file-btn" />
+          </label>
+        </section>
+        <section class="result">
+          <img src="images/upload.png" alt="" id="img-result" />
+          <img src="images/arrow-right.png" alt="arrow" class="arrow" />
+          <div>
+            <p class="tooltip" title="Copy text." id="copy-text">
+              <i class="fa-solid fa-copy"></i>
+            </p>
+            <textarea
+              id="converted-text"
+              placeholder="Converted text of image"
+            ></textarea>
+          </div>
+
+          <div class="row_two">
+            <div style="height: auto;">
+              <select id="translate_select_language" style="cursor: pointer;"></select>
+            </div>
+            <div style="height: auto;">
+              <button id="translate-btn" style="cursor: pointer;">Translate</button>
+            </div>
+            <div style="height: auto;">
+              <button id="readAloud" class="speakBtn"><i class="fa-solid fa-volume-high" style="cursor: pointer;"></i></button>
+            </div>
+          </div>
+
+          <div class="transtleted_div">
+            <span id="translated_text"></span>
+          </div>
+  
+        </section>
+
+      
+
+      
+      </main>
+
+      <div>
+       
+       
+       
+      </div>
+
+    </div>
+
+    <script>
+      const img_url = document.querySelector("#img-url"),
+        upload_file_btn = document.querySelector("#upload-file-btn"),
+        copy_text = document.querySelector("#copy-text"),
+        img_result = document.querySelector("#img-result"),
+        converted_text = document.querySelector("#converted-text");
+
+      img_url.onclick = () => {
+        img_url.select();
+      };
+
+      copy_text.onclick = () => {
+        copy_text.setAttribute("title", "Copied");
+        setTimeout(() => {
+          copy_text.setAttribute("title", "Copy text.");
+        }, 2000);
+
+        if (converted_text.value !== "") {
+          navigator.clipboard.writeText(converted_text.value);
+        }
+      };
+
+      img_url.addEventListener("change", createFile);
+      upload_file_btn.addEventListener("change", displayImage);
+
+      async function createFile() {
+        if (this.value !== "") {
+          img_result.src = this.value;
+
+          await fetch(this.value)
+            .then((res) => res.blob())
+            .then((blob_file) => {
+              let file = new File([blob_file], blob_file.name, {
+                type: blob_file.type,
+              });
+              recognizeText(file);
+            });
+        }
+      }
+
+      function displayImage() {
+        const reader = new FileReader();
+        reader.onload = () => {
+          img_result.src = reader.result;
+        };
+        reader.readAsDataURL(this.files[0]);
+        recognizeText(this.files[0]);
+      }
+
+      function recognizeText(file) {
+        Tesseract.recognize(
+          file,
+          "eng","hin", 
+          { logger: (m) => console.log(m) } 
+        )
+          .then((result) => {
+            converted_text.value = result.text;
+          })
+          .catch((err) => {
+            console.error("Error:", err);
+          });
+      }
+
+
+      const countries = {
+        "am-ET": "Amharic",
+        "ar-SA": "Arabic",
+        "be-BY": "Bielarus",
+        "bem-ZM": "Bemba",
+        "bi-VU": "Bislama",
+        "bjs-BB": "Bajan",
+        "bn-IN": "Bengali",
+        "bo-CN": "Tibetan",
+        "br-FR": "Breton",
+        "bs-BA": "Bosnian",
+        "ca-ES": "Catalan",
+        "cop-EG": "Coptic",
+        "cs-CZ": "Czech",
+        "cy-GB": "Welsh",
+        "da-DK": "Danish",
+        "dz-BT": "Dzongkha",
+        "de-DE": "German",
+        "dv-MV": "Maldivian",
+        "el-GR": "Greek",
+        "en-GB": "English",
+        "es-ES": "Spanish",
+        "et-EE": "Estonian",
+        "eu-ES": "Basque",
+        "fa-IR": "Persian",
+        "fi-FI": "Finnish",
+        "fn-FNG": "Fanagalo",
+        "fo-FO": "Faroese",
+        "fr-FR": "French",
+        "gl-ES": "Galician",
+        "gu-IN": "Gujarati",
+        "ha-NE": "Hausa",
+        "he-IL": "Hebrew",
+        "hi-IN": "Hindi",
+        "hr-HR": "Croatian",
+        "hu-HU": "Hungarian",
+        "id-ID": "Indonesian",
+        "is-IS": "Icelandic",
+        "it-IT": "Italian",
+        "ja-JP": "Japanese",
+        "kk-KZ": "Kazakh",
+        "km-KM": "Khmer",
+        "kn-IN": "Kannada",
+        "ko-KR": "Korean",
+        "ku-TR": "Kurdish",
+        "ky-KG": "Kyrgyz",
+        "la-VA": "Latin",
+        "lo-LA": "Lao",
+        "lv-LV": "Latvian",
+        "men-SL": "Mende",
+        "mg-MG": "Malagasy",
+        "mi-NZ": "Maori",
+        "ms-MY": "Malay",
+        "mt-MT": "Maltese",
+        "my-MM": "Burmese",
+        "ne-NP": "Nepali",
+        "niu-NU": "Niuean",
+        "nl-NL": "Dutch",
+        "no-NO": "Norwegian",
+        "ny-MW": "Nyanja",
+        "ur-PK": "Pakistani",
+        "pau-PW": "Palauan",
+        "pa-IN": "Panjabi",
+        "ps-PK": "Pashto",
+        "pis-SB": "Pijin",
+        "pl-PL": "Polish",
+        "pt-PT": "Portuguese",
+        "rn-BI": "Kirundi",
+        "ro-RO": "Romanian",
+        "ru-RU": "Russian",
+        "sg-CF": "Sango",
+        "si-LK": "Sinhala",
+        "sk-SK": "Slovak",
+        "sm-WS": "Samoan",
+        "sn-ZW": "Shona",
+        "so-SO": "Somali",
+        "sq-AL": "Albanian",
+        "sr-RS": "Serbian",
+        "sv-SE": "Swedish",
+        "sw-SZ": "Swahili",
+        "ta-LK": "Tamil",
+        "te-IN": "Telugu",
+        "tet-TL": "Tetum",
+        "tg-TJ": "Tajik",
+        "th-TH": "Thai",
+        "ti-TI": "Tigrinya",
+        "tk-TM": "Turkmen",
+        "tl-PH": "Tagalog",
+        "tn-BW": "Tswana",
+        "to-TO": "Tongan",
+        "tr-TR": "Turkish",
+        "uk-UA": "Ukrainian",
+        "uz-UZ": "Uzbek",
+        "vi-VN": "Vietnamese",
+        "wo-SN": "Wolof",
+        "xh-ZA": "Xhosa",
+        "yi-YD": "Yiddish",
+        "zu-ZA": "Zulu",
+      };
+
+      var translate_select_language = document.getElementById(
+        "translate_select_language"
+      );
+
+      for (const countryCode in countries) {
+        const countryName = countries[countryCode];
+        const option = document.createElement("option");
+        option.value = countryCode;
+        option.textContent = countryName;
+        translate_select_language.appendChild(option);
+      }
+
+      function textTranslate() {
+        var translate_btn = document.getElementById("translate-btn");
+
+        var translated_text = document.getElementById("translated_text");
+
+        var text = document.getElementById("converted-text");
+
+      
+
+        translate_btn.addEventListener("click", () => {
+          var finalText = text.value,
+            translateTo = translate_select_language.value;
+          console.log(finalText);
+          let apiUrl = `https://api.mymemory.translated.net/get?q=${finalText}&langpair=en-GB|${translateTo}`;
+          fetch(apiUrl)
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data);
+              translated_text.innerText = data.responseData.translatedText;
+              console.log(translated_text);
+            });
+        });
+      }
+
+      let readAloud = document.getElementById('readAloud');
+      readAloud.addEventListener('click',()=>{
+          const textToSpeak = translated_text.innerText;
+          if(textToSpeak !== ''){
+            const utterance = new SpeechSynthesisUtterance(textToSpeak);
+            window.speechSynthesis.speak(utterance);
+          }
+      });
+
+      textTranslate();
+    </script>
+    <script src="https://cdn.jsdelivr.net/gh/naptha/tesseract.js@1.0.10/dist/tesseract.min.js"></script>
+  </body>
+</html>

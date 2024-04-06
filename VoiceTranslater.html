@@ -1,0 +1,115 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Web Speech APIU</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="style/web-speech.css" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script
+      src="https://kit.fontawesome.com/0dbb936917.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <main class="main_body">
+      <div class="container" style="padding: 30px;">
+        <h3 class="text-center">Bridge Gap</h3>
+        <div id="info"></div>
+        <div class="main_Container">
+          <div>
+            <select id="select_language"></select>
+            <select id="select_dialect"></select>
+            <div class="float-right">
+              <button id="start_button">
+                <img id="start_img" src="images/mic.gif" alt="Start" />
+              </button>
+            </div>
+          </div>
+
+          <div id="results">
+            <span id="final_span" class="final"></span>
+            <span id="interim_span" class="interim"></span>
+            <p></p>
+          </div>
+        </div>
+        <div class="row col-12 p-0 m-0">
+          <div class="row col-12 col-md-8 col-lg-6 p-0 m-0"></div>
+          <div class="col-12 col-md-4 col-lg-6 mt-3 mt-md-0 p-0 m-0">
+            <div class="float-right">
+              <button
+                id="copy_button"
+                class="btn btn-primary"
+                style="margin-top: 15px"
+              >
+                Copy
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h2 style="text-align: center; padding-bottom: 10px">
+          Translate into your prefer language
+        </h2>
+      </div>
+
+      <div class="row_two">
+        <div class="translate_dropdown">
+          <select id="translate_select_language"></select>
+        </div>
+
+        <div class="text-center">
+          <button class="btn btn-primary" id="translate_btn">Translate</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="container mt-5">
+          <div id="translate-info"></div>
+          <div class="float-right">
+            <!-- <button id="translate-btn">
+                  <img id="" src="images/mic.gif" alt="Start"></button> -->
+          </div>
+          <div class="main_translator_Container">
+            <div id="translate-results main">
+              <span id="translate_final_span" class="translate_final"></span>
+              <span
+                id="translate_interim_span"
+                class="translate_interim"
+              ></span>
+              <p></p>
+            </div>
+          </div>
+
+          <div class="row_3">
+            <div>
+              <div class="float-right">
+                <button id="copy_button" class="btn btn-primary">Copy</button>
+              </div>
+            </div>
+
+            <div>
+              <!-- <select id="voiceSelect"></select> -->
+              <button id="speakBtn" class="speakBtn">
+                <i class="fa-solid fa-volume-high"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+    </main>
+
+    <script src="js/languages.js"></script>
+    <script src="js/web-speech-api.js"></script>
+    <script src="js/contries.js"></script>
+  </body>
+</html>
